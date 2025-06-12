@@ -1,4 +1,5 @@
 export type ArticleInfo = {
+    id: number;
     title: string;
     description: string;
     content?: string;

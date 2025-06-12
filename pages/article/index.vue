@@ -15,14 +15,17 @@ provide('articleLoading', {
             <div class="zzz-loading_anim" />
         </div>
         <div v-show="!isLoading" class="article-list">
-            <ArticleCard v-for="(articleInfo, index) in articleInfoList" :key="index" :article-info="articleInfo" class="article-card" />
+            <ArticleCard
+                v-for="(articleInfo, idx) in articleInfoList" :key="idx" :article-info="articleInfo"
+                class="article-card" :style="{ animationDelay: `${0.05 * idx}s` }" 
+            />
         </div>
     </div>
 </template>
 
 <style lang="less" scoped>
 .article {
-    margin: 6rem 2rem;
+    margin: 2rem;
     position: relative;
     min-height: 300px;
 
@@ -35,9 +38,9 @@ provide('articleLoading', {
         .zzz-loading_anim {
             min-width: 110px;
             min-height: 150px;
-            background: url('/zzz-loading.png') no-repeat;
+            background: url('https://zamyang.cn/api/image/jSPGd73xHu4Tg7h9Z8NXzw.webp') no-repeat;
             background-position: 0 6px;
-            animation: zzz-loadingLoop .5s steps(30) infinite;
+            animation: zzz-loading_loop .5s steps(30) infinite;
             filter: invert(1);
         }
     }
@@ -45,19 +48,33 @@ provide('articleLoading', {
     .article-list {
         display: grid;
         align-items: start;
-        grid-template-columns: repeat(5, calc(100% / 5 - 1rem));
-        justify-content: space-around;
+        grid-template-columns: repeat(5, 1fr);
         gap: 20px;
+
+        .article-card {
+            animation: fade-in 0.1s ease-in-out forwards;
+            opacity: 0;
+        }
     }
 }
 
-@keyframes zzz-loadingLoop {
+@keyframes zzz-loading_loop {
     0% {
         background-position: 0 6px;
     }
 
     100% {
         background-position: 0 -4494px;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }
 </style>

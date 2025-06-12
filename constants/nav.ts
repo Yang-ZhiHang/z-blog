@@ -2,15 +2,11 @@ import type { NavItem } from "~/types/nav"
 
 export const navList: NavItem[] = [
     {
-        title: '日常',
-        href: '/daily',
-    },
-    {
         title: '文章',
         href: '/article',
     },
     {
-        title: '地球Online',
+        title: '关于',
         href: '/about',
     },
 ]

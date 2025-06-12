@@ -1,21 +1,16 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
 import { authorInfo } from '~/data/author';
 
-const startDate = new Date(authorInfo.birth);
+const birthday = new Date(authorInfo.birth);
 const today = new Date();
-const timeDiff = today.getTime() - startDate.getTime();
-const level = computed(() => {
-    const years = timeDiff / (1000 * 60 * 60 * 24 * 365);
-    return Math.floor(years);
-});
 
-const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-const currentExp = ref(daysDiff);
-const totalExp = computed(() => (level.value + 1) * 365);
-const expPercentage = computed(() => {
-    return (currentExp.value % 365 / 365) * 100;
-}); // 生日后的经验值百分比
+const seconds = today.getTime() - birthday.getTime();
+const days = Math.ceil(seconds / (1000 * 60 * 60 * 24));
+
+const level = Math.floor(days / 365);
+const currentExp = days;
+const totalExp = (level + 1) * 365;
+const expPercentage = (currentExp / totalExp) * 100;
 </script>
 
 <template>
@@ -40,8 +35,9 @@ const expPercentage = computed(() => {
 <style lang="less" scoped>
 .author {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
-    margin: 1rem;
+    margin: .5rem 1rem;
     width: 300px;
     height: 3rem;
     background: linear-gradient(0, #151515, #222222), linear-gradient(0, #161616, #353535);
@@ -55,8 +51,8 @@ const expPercentage = computed(() => {
     cursor: default;
 
     .avatar {
-        width: 2.5rem;
-        height: 2.5rem;
+        height: 100%;
+        aspect-ratio: 1 / 1;
         border-radius: 50%;
         border: 3px solid black;
         overflow: hidden;
@@ -86,16 +82,18 @@ const expPercentage = computed(() => {
         .exp-bar {
             position: relative;
             width: 100%;
-            height: 0.8rem;
+            height: 1rem;
             background: linear-gradient(90deg, #222222, #222222), linear-gradient(#141414, #2A2A2A);
             background-origin: padding-box, border-box;
             background-clip: padding-box, border-box;
             border: 2px solid transparent;
             border-radius: 0.4rem;
-            overflow: hidden;
 
             .exp-progress {
-                height: 100%;
+                position: absolute;
+                top: -1px;
+                left: -1px;
+                height: calc(100% + 2px);
                 background: linear-gradient(to right, #4663FD, #14C7FF);
                 border-radius: 0.4rem;
             }

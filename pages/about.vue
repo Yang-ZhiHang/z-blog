@@ -3,11 +3,13 @@
 </script>
 
 <template>
-<div class="about">
-
-</div>
+    <div class="about">
+        <AboutBook />
+    </div>
 </template>
 
 <style lang="less" scoped>
-
+.about {
+    margin: 0 auto;
+}
 </style>

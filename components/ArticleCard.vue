@@ -10,6 +10,12 @@ const props = defineProps({
     }
 })
 
+const router = useRouter();
+
+const gotoArticle = (id: number): void => {
+    router.push(`/article/${id}`);
+}
+
 const imageLoaded = ref<boolean>(false);
 const cardRef = ref<HTMLElement | null>(null);
 const imgRef = ref<HTMLElement | null>(null);
@@ -23,7 +29,6 @@ const updateCardHeight = (): void => {
 }
 
 const loadImage = () => {
-    setLoaded();
     if (imgRef.value && !imageLoaded.value) {
         imgRef.value.addEventListener('load', () => {
             imageLoaded.value = true;
@@ -35,11 +40,12 @@ const loadImage = () => {
 
 onMounted(() => {
     loadImage();
+    setLoaded();
 })
 </script>
 
 <template>
-    <div ref="cardRef" class="article-card">
+    <article ref="cardRef" class="article-card" @click="gotoArticle(props.articleInfo.id)">
         <div class="views">
             <Icon name="heroicons:eye" size="20" />
             <span>{{ props.articleInfo.views }}</span>
@@ -51,7 +57,7 @@ onMounted(() => {
             <h2 class="title">{{ props.articleInfo.title }}</h2>
             <p class="describ">{{ props.articleInfo.description }}</p>
         </div>
-    </div>
+    </article>
 </template>
 
 <style lang="less" scoped>
@@ -62,6 +68,7 @@ onMounted(() => {
     border: 4px solid #000000;
     border-radius: 1.5rem 1.5rem 0 1.5rem;
     overflow: hidden;
+    cursor: pointer;
 
     .views {
         position: absolute;
@@ -78,7 +85,6 @@ onMounted(() => {
     .img-container {
         position: relative;
         width: 100%;
-        min-height: 150px;
 
         img {
             width: 100%;
@@ -108,6 +114,14 @@ onMounted(() => {
             margin: 0;
             color: #929292;
             font-size: 1rem;
+            display: -webkit-box;
+
+            // line-clamp 是非标准 CSS 属性，不一定生效
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .describ {
@@ -115,6 +129,9 @@ onMounted(() => {
             color: #AAAAAA;
             font-weight: bold;
             font-size: .8rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }

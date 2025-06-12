@@ -1,20 +1,26 @@
 <template>
-  <div>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-  </div>
 </template>
 
 <style>
-
 :root {
-  --inclination-degree: -25deg;
+  --header-height: 4rem;
+  --inclination-degree: -28deg;
+  --clip-size: 5rem;
+  --flicker-color-1: #F1D801;
+  --flicker-color-2: #6bbd00;
+  --stack-card-border-radius: 1.5rem;
 }
-body {
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+body {
   background-color: #000;
 }
 
