@@ -17,7 +17,7 @@ provide('articleLoading', {
         <div v-show="!isLoading" class="article-list">
             <ArticleCard
                 v-for="(articleInfo, idx) in articleInfoList" :key="idx" :article-info="articleInfo"
-                class="article-card" :style="{ animationDelay: `${0.05 * idx}s` }" 
+                class="article-card" :style="{ animationDelay: `${0.02 * idx}s` }" 
             />
         </div>
     </div>

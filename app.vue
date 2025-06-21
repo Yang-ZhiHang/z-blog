@@ -7,6 +7,7 @@
 <style>
 :root {
   --header-height: 4rem;
+  --footer-height: 5rem;
   --inclination-degree: -28deg;
   --clip-size: 5rem;
   --flicker-color-1: #F1D801;

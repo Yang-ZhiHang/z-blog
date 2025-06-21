@@ -5,6 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
   modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/image'],
+  css: ['~/main.css'],
   app: {
     head: {
       title: `${authorInfo.name}的个人博客`,
@@ -19,5 +20,11 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { redirect: '/article' }
+  },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {}
+    }
   }
 })

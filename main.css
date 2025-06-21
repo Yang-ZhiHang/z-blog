@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text-shadow-grey: -1.3px -1.3px 0 #414141, -1.3px 1.3px 0 #414141, 1.3px 1.3px 0 #414141;
+  --text-shadow-black: -1.3px -1.3px #000, -1.3px 1.3px #000, 1.3px 1.3px #000;
+}
+
+@layer utilities {
+  .text-shadow-grey {
+    text-shadow: var(--text-shadow-grey);
+  }
+  
+  .text-shadow-black {
+    text-shadow: var(--text-shadow-black);
+  }
+  
+  .text-shadow-none {
+    text-shadow: none;
+  }
+}

@@ -19,6 +19,9 @@ const handleClick_Row = (index: number) => {
 
 // ===== 卡片式 start =====
 const activeIdx_Card = ref<number>(0)
+const isLoading = ref(true)
+const loadedImages = ref<Set<string>>(new Set())
+
 const handleClick_Card = (index: number) => {
     activeIdx_Card.value = index
 }
@@ -39,7 +42,29 @@ const handleCardKeyboardNavigation = (event: KeyboardEvent) => {
     }
     activeIdx_Card.value = newIndex;
 };
-// ===== 卡片式 end =====
+
+// 预加载图片
+const preloadImages = (items: any[]) => {
+    isLoading.value = true
+    loadedImages.value.clear()
+    
+    items.forEach(item => {
+        const img = new Image()
+        img.src = item.url
+        img.onload = () => {
+            loadedImages.value.add(item.url)
+            if (loadedImages.value.size === items.length) {
+                isLoading.value = false
+            }
+        }
+    })
+}
+
+// 初始化时加载图片
+onMounted(() => {
+    const items = aboutInfo[activeIdx_Column.value]?.item[activeIdx_Row.value]?.item || []
+    preloadImages(items)
+})
 
 // 全局键盘事件处理
 const handleGlobalKeyboardEvent = (event: KeyboardEvent) => {
@@ -62,11 +87,12 @@ watch([activeIdx_Column, activeIdx_Row], () => {
 
 <template>
     <div class="book">
-        <div class="nav">
-            <ul>
+        <div class="book_nav">
+            <ul class="absolute flex flex-row items-end justify-between px-4 bottom-1/2 gap-4 text-[#BBBBBB] font-bold italic">
                 <li 
                     v-for="(item, idx) in aboutInfo" 
                     :key="idx"
+                    class="px-[2.5rem] py-[.6rem] bg-[repeating-linear-gradient(110deg,transparent,transparent_4px,rgba(0,0,0,.02)_4px,rgba(0,0,0,.02)_15px),linear-gradient(150deg,#707070,#464646)] rounded-[.7rem_.7rem_0_0] text-shadow-black cursor-pointer hover:text-[#808080]"
                     :class="{ active: activeIdx_Column === idx }"
                     @click="handleClick_Column(idx)"
                 >
@@ -78,55 +104,76 @@ watch([activeIdx_Column, activeIdx_Row], () => {
             <div class="book_clip">
                 <div class="left-bar">
                     <div class="left-bar_clip">
-                        <ul>
+                        <ul class="flex flex-col items-center justify-start p-[0.4rem] w-full h-[85%] bg-[#4B4B4B] rounded-[.5rem_.5rem_1.5rem_1.5rem] gap-[0.4rem]">
                             <li
                                 v-for="(item, idx) in aboutInfo[activeIdx_Column]['item']"
                                 :key="idx"
+                                class="relative p-[1.4rem] w-full text-[#AAAAAA] text-center text-shadow-grey font-bold italic cursor-pointer"
                                 :class="{ active: activeIdx_Row === idx }"
                                 @click="handleClick_Row(idx)"
                             >{{ item.title }}</li>
                         </ul>
                     </div>
                 </div>
-                <div class="right-container">
-                    <div class="content">
-                        <div class="card-list-container" v-show="aboutInfo[activeIdx_Column].title === '关于我'">
-                            <ul class="card-style">
-                                <li 
-                                    v-for="(item, idx) in aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item']"
-                                    :key="idx"
-                                    :class="{ active: activeIdx_Card === idx }"
-                                >
-                                    <div class="img-container" @click="handleClick_Card(idx)">
-                                        <img :src="item.url" alt="Card Image" />
-                                    </div>
-                                    <span>{{ item.title }}</span>
-                                </li>
-                            </ul>
-                            <div class="card-detail">
-                                <div style="z-index: 2; padding: 1rem; width: 100%;">
-                                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                                        <span>{{ aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].title }}</span>
-                                        <div class="img-container">
-                                            <img :src="aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].url" alt="Card Detail Image" />
-                                            <img class="shadow" :src="aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].url" alt="Card Detail Image" />
+                <div class="right-part">
+                    <div class="mt-[4rem] mb-[1.5rem] w-full h-full bg-[#141414] border-3xl shadow-[0_0_8px_rgba(0,0,0,.7),0_0_8px_inset_black] rounded-[2rem]">
+                        <div class="list-container_net-style" v-if="aboutInfo[activeIdx_Column].title === '关于我'">
+                            <div v-if="isLoading" class="flex justify-center items-center w-full">
+                                <div class="zzz-loading_anim"></div>
+                            </div>
+                            <div v-else class="flex justify-between w-full h-full">
+                                <ul class="flex flex-wrap content-start m-4 gap-[2.5%] h-full">
+                                    <li 
+                                        v-for="(item, idx) in aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item']"
+                                        :key="idx"
+                                        class="w-[18%]"
+                                        :class="{ active: activeIdx_Card === idx }"
+                                    >
+                                        <div class="mb-1" @click="handleClick_Card(idx)">
+                                            <img :src="item.url" class="relative block m-0 w-full border-[3px] border-solid border-[#3F3F3F] rounded-[var(--stack-card-border-radius)] cursor-pointer z-[1]" />
+                                        </div>
+                                        <span class="block w-full py-1.5 px-0 text-center text-xs font-bold leading-3 text-white bg-black rounded-full cursor-pointer">
+                                            {{ item.title }}
+                                        </span>
+                                    </li>
+                                </ul>
+                                <div class="card-detail">
+                                    <div style="z-index: 2; padding: 1rem; width: 100%;">
+                                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                                            <h1 class="font-bold text-3xl text-shadow-black">{{ aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].title }}</h1>
+                                            <div>
+                                                <img 
+                                                    :src="aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].url"
+                                                    class="w-[5rem] border-[var(--stack-card-border-radius)]"
+                                                />
+                                                <img class="absolute top-[2.5rem] right-[3rem] w-2/5 aspect-square z-[-1] grayscale-[1] opacity-[.3]" :src="aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].url"/>
+                                            </div>
+                                        </div>  
+                                        <div class="mt-8 whitespace-pre-line indent-[2em]">
+                                            <p v-for="(paragraph, index) in aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].description.split('\n')" :key="index">
+                                                {{ paragraph }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div style="z-index: 2; padding: 1rem; width: 100%;">
-                                    <p class="description">{{ aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].description }}</p>
-                                </div>
                             </div>
                         </div>
-                        <ul class="itemized-style" v-show="aboutInfo[activeIdx_Column].title === 'Github'">
+                        <ul class="list-container_linear-style" v-else-if="aboutInfo[activeIdx_Column].title === 'Github'">
                             <li
                                 v-for="(item, idx) in aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item']"
                                 :key="idx"
+                                class="relative flex justify-between pl-4 w-full h-10 text-white bg-[linear-gradient(to_bottom,#404040,#303030)] rounded-[3rem] leading-10"
                             >
-                                <span :title="item.title">
+                                <span
+                                    :title="item.title"
+                                    class="w-[80%] overflow-hidden text-ellipsis whitespace-nowrap"
+                                >
                                     {{ item.title }}
                                 </span>
-                                <button @click.prevent="handleNavigate(item.url)">
+                                <button
+                                    @click.prevent="handleNavigate(item.url)"
+                                    class="absolute right-0 top-0 m-[.1rem] p-[2px] w-[8rem] h-[calc(100%-.2rem)] text-white bg-[linear-gradient(#080808,#080808),linear-gradient(#343434,#343434)] bg-clip-content border-2 border-[#080808] rounded-[2rem] leading-4 font-bold italic cursor-pointer hover:bg-[linear-gradient(#151515,#151515),linear-gradient(#343434,#343434)]"
+                                >
                                     前往
                                 </button>
                             </li>
@@ -148,7 +195,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
     margin: 4rem auto;
     width: max-content;
 
-    .nav {
+    .book_nav {
         position: absolute;
         top: 0;
         right: 1.5rem;
@@ -168,40 +215,11 @@ watch([activeIdx_Column, activeIdx_Row], () => {
             background: linear-gradient(to top, rgba(0, 0, 0, .5), transparent);
         }
 
-        ul {
-            position: absolute;
-            bottom: 50%;
-            display: flex;
-            flex-direction: row;
-            align-items: end;
-            justify-content: space-between;
-            padding: 0 1rem;
-            gap: 1rem;
-            color: #BBBBBB;
-            text-shadow: 
-                -1.3px -1.3px #000,
-                -1.3px 1.3px #000,
-                1.3px 1.3px #000;
-            font-weight: bold;
-            font-style: italic;
-
-            li {
-                padding: .6rem 2.5rem;
-                background: repeating-linear-gradient(110deg, transparent, transparent 4px, rgba(0, 0, 0, .02) 4px, rgba(0, 0, 0, .02) 15px), linear-gradient(150deg, #707070, #464646);
-                border-radius: .7rem .7rem 0 0;
-                cursor: pointer;
-
-                &:hover {
-                    color: #808080;
-                }
-
-                &.active {
-                    color: black;
-                    text-shadow: none;
-                    padding: 1rem 2.5rem;
-                    background: repeating-linear-gradient(110deg, transparent, transparent 4px, rgba(0, 0, 0, .02) 4px, rgba(0, 0, 0, .02) 15px), linear-gradient(150deg, #FCD642, #D7B201);
-                }
-            }
+        li.active {
+            color: black;
+            text-shadow: var(--text-shadow-none);
+            padding: 1rem 2.5rem;
+            background: repeating-linear-gradient(110deg, transparent, transparent 4px, rgba(0, 0, 0, .02) 4px, rgba(0, 0, 0, .02) 15px), linear-gradient(150deg, #FCD642, #D7B201);
         }
     }
 
@@ -302,298 +320,154 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                             radial-gradient(rgba(255, 255, 255, .03) .1px, transparent 1px);
                         background-size: 5px 5px;
                         background-position: 0 0, 2.5px 2.5px;
-                        z-index: 1;
                         border-radius: 1.5rem;
+                        z-index: 1;
                         pointer-events: none;
+                        box-shadow: inset 0 0 5px rgba(0, 0, 0, .4);
                     }
 
-                    ul {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: flex-start;
-                        padding: .4rem .2rem;
-                        width: 100%;
-                        height: 85%;
-                        background-color: #4B4B4B;
-                        border-radius: .5rem .5rem 1.5rem 1.5rem;
-                        gap: .4rem;
-                        box-shadow: 0 -1px 2px rgba(0, 0, 0, .2);
+                    li {
+                        &:not(.active)::before {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 50%;
+                            transform: translate(-50% , 0);
+                            width: 80%;
+                            height: 2px;
+                            background-color: #414141;
+                            border-radius: 1rem;
+                            border-bottom: 1px solid #535353;
+                        }
 
-                        li {
-                            position: relative;
-                            padding: 1.4rem;
-                            width: 100%;
-                            color: #AAAAAA;
-                            text-shadow: 
-                                -1.3px -1.3px 0 #414141,
-                                -1.3px 1.3px 0 #414141,
-                                1.3px 1.3px 0 #414141;
+                        &.active {
+                            color: white;
+                            background: linear-gradient(-120deg, #1C89FE, #2D4ED5);
+                            border-radius: .4rem;
+                            text-shadow: var(--text-shadow-black);
                             font-weight: bold;
                             font-style: italic;
                             text-align: center;
-                            cursor: pointer;
-                            
-                            &:not(.active)::before {
+                            box-shadow: 1px 1px 2px black;
+                            border-bottom: none;
+                            overflow: hidden;
+
+                            &::before {
                                 content: '';
                                 position: absolute;
                                 bottom: 0;
-                                left: 50%;
-                                transform: translate(-50% , 0);
-                                width: 80%;
-                                height: 2px;
-                                background-color: #414141;
-                                border-radius: 1rem;
-                                border-bottom: 1px solid #535353;
-                            }
-
-                            &.active {
-                                color: white;
-                                background: linear-gradient(-120deg, #1C89FE, #2D4ED5);
-                                border-radius: .4rem;
-                                text-shadow: 
-                                    -1.3px -1.3px #000,
-                                    -1.3px 1.3px #000,
-                                    1.3px 1.3px #000;
-                                font-weight: bold;
-                                font-style: italic;
-                                text-align: center;
-                                box-shadow: 1px 1px 2px black;
-                                border-bottom: none;
-                                overflow: hidden;
-
-                                &::before {
-                                    content: '';
-                                    position: absolute;
-                                    bottom: 0;
-                                    left: 0;
-                                    width: 400px;
-                                    height: 400px;
-                                    background: repeating-linear-gradient(
-                                        60deg,
-                                        rgba(255, 255, 255, 0.05) 0px,
-                                        rgba(255, 255, 255, 0.05) 30px,
-                                        transparent 30px,
-                                        transparent 50px
-                                    );
-                                    animation: move-stripes 2s linear infinite;
-                                    pointer-events: none;
-                                }
+                                left: 0;
+                                width: 400px;
+                                height: 400px;
+                                background: repeating-linear-gradient(
+                                    60deg,
+                                    rgba(255, 255, 255, 0.05) 0px,
+                                    rgba(255, 255, 255, 0.05) 30px,
+                                    transparent 30px,
+                                    transparent 50px
+                                );
+                                animation: move-stripes 2s linear infinite;
+                                pointer-events: none;
                             }
                         }
                     }
                 }
             }
 
-            .right-container {
+            .right-part {
                 display: flex; 
                 flex-direction: column; 
                 width: 75%;
                 margin: 0 1.5rem; 
                 height: 100%;
 
-                .content {
-                    margin: 4rem 0 1.5rem 0;
+                .list-container_net-style {
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: row;
                     width: 100%;
                     height: 100%;
-                    background-color: #141414;
-                    border-radius: 2rem;
-                    box-shadow: 0 0 8px rgba(0, 0, 0, .7), 0 0 8px inset black;
 
-                    .card-list-container {
-                        display: flex;
-                        justify-content: space-between;
-                        flex-direction: row;
-                        width: 100%;
-                        height: 100%;
+                    .zzz-loading_anim {
+                        margin: 0 auto;
+                        min-width: 110px;
+                        min-height: 150px;
+                        background: url('https://zamyang.cn/api/image/jSPGd73xHu4Tg7h9Z8NXzw.webp') no-repeat;
+                        background-position: 0 6px;
+                        animation: zzz-loading_loop .5s steps(30) infinite;
+                        filter: invert(1);
+                    }
 
-                        .card-style {
-                            display: flex;
-                            align-content: flex-start;
-                            flex-wrap: wrap;
-                            margin: 1rem;
-                            gap: 2.5%;
-                            height: 100%;
-
-                            li {
-                                width: 18%;
-
-                                &.active .img-container {
-                                    position: relative;
-
-                                    &::after {
-                                        content: '';
-                                        position: absolute;
-                                        top: 50%;
-                                        left: 50%;
-                                        width: 100%;
-                                        aspect-ratio: 1/1;
-                                        border-radius: var(--stack-card-border-radius);
-                                        animation: gradient-color 1.48s linear infinite, scale-bg .7s ease-in-out infinite;
-                                        z-index: 0;
-                                    }
-                                }
-
-                                .img-container {
-                                    margin-bottom: .2rem;
-                                    img {   
-                                        position: relative;
-                                        display: block;
-                                        width: 100%;
-                                        border: 3px solid #3F3F3F;
-                                        border-radius: var(--stack-card-border-radius);
-                                        cursor: pointer;
-                                        z-index: 1;
-                                    }
-                                }
-
-                                span {
-                                    display: block;
-                                    width: 100%;
-                                    padding: .3rem 0;
-                                    text-align: center;
-                                    font-size: .7rem;
-                                    font-weight: bold;
-                                    line-height: .7rem;
-                                    color: white;
-                                    background-color: black;
-                                    border-radius: 1rem;
-                                }
-                            }
-                        }
-
-                        .card-detail {
-                            display: flex;
-                            flex-direction: column;
+                    li.active {
+                        div {
                             position: relative;
-                            flex-shrink: 0;
-                            margin: 1rem 1rem 1rem 0;
-                            width: 40%;
-                            color: white;
-                            background: linear-gradient(to bottom, black 2rem, #222222 2rem, black 60%);
-                            border: 3px solid #333333;
-                            border-radius: 1rem;
-                            overflow: auto;
-
-                            &::before {
-                                content: 'DETAIL';
-                                display: block;
-                                padding: .8rem 1rem 0 .8rem;
-                                width: 100%;
-                                color: #2C2C2C;
-                                line-height: 1rem;
-                                font-weight: bolder;
-                                background-color: black;
-                                border-radius: 2rem;
-                                text-align: left;
-                                box-sizing: border-box;
-                                z-index: 2;
-                            }
-
                             &::after {
                                 content: '';
                                 position: absolute;
-                                bottom: 0;
-                                left: 0;
+                                top: 50%;
+                                left: 50%;
                                 width: 100%;
-                                height: calc(100% - 2rem);
-                                background-image: 
-                                    radial-gradient(rgba(0, 0, 0, .4) .2px, transparent 1.2px), 
-                                    radial-gradient(rgba(0, 0, 0, .4) .2px, transparent 1.2px); 
-                                background-size: 5px 5px;
-                                background-position: 0 0, 2.5px 2.5px;
-                                z-index: 1;
-                            }
-
-                            span {
-                                font-weight: bold;
-                                text-shadow: 
-                                    -1.3px -1.3px #000,
-                                    -1.3px 1.3px #000,
-                                    1.3px 1.3px #000;
-                            }
-
-                            .img-container {
-                                img {
-                                    width: 5rem;
-                                    border-radius: var(--stack-card-border-radius);
-                                }
-
-                                img.shadow {
-                                    position: absolute;
-                                    top: 2.5rem;
-                                    right: 2rem;
-                                    width: 40%;
-                                    aspect-ratio: 1/1;
-                                    z-index: -1;
-                                    filter: grayscale(1);
-                                    opacity: .3;
-                                }
-                            }
-
-                            .description {
-
+                                aspect-ratio: 1/1;
+                                border-radius: var(--stack-card-border-radius);
+                                animation: gradient-color 1.48s linear infinite, scale-bg .7s ease-in-out infinite;
+                                z-index: 0;
                             }
                         }
                     }
 
-                    .itemized-style {
+                    .card-detail {
                         display: flex;
                         flex-direction: column;
-                        gap: .8rem;
-                        margin: .8rem 1rem;
-                        width: calc(100% - 2rem);
-                        text-shadow: 
-                            -1.3px -1.3px #000,
-                            -1.3px 1.3px #000,
-                            1.3px 1.3px #000;
-                        font-weight: bold;
+                        position: relative;
+                        flex-shrink: 0;
+                        margin: 1rem 1rem 1rem 0;
+                        width: 40%;
+                        color: white;
+                        background: linear-gradient(to bottom, black 2rem, #222222 2rem, black 60%);
+                        border: 3px solid #333333;
+                        border-radius: 1rem;
+                        overflow: auto;
 
-                        li {
-                            position: relative;
-                            display: flex;
-                            justify-content: space-between;
-                            padding-left: 1rem;
+                        &::before {
+                            content: 'DETAIL';
+                            display: block;
+                            padding: .8rem 1rem 0 .8rem;
                             width: 100%;
-                            height: 2.5rem;
-                            color: white;
-                            background: linear-gradient(to bottom, #404040, #303030);
-                            border-radius: 3rem;
-                            line-height: 2.5rem;
+                            color: #2C2C2C;
+                            line-height: 1rem;
+                            font-weight: bolder;
+                            background-color: black;
+                            border-radius: 2rem;
+                            text-align: left;
+                            box-sizing: border-box;
+                            z-index: 2;
+                        }
 
-                            span {
-                                width: 70%;
-                                white-space: nowrap;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                            }
-
-                            button {
-                                position: absolute;
-                                right: 0;
-                                top: 0;
-                                margin: .1rem;
-                                padding: 2px;
-                                width: 8rem;
-                                height: calc(100% - .2rem);
-                                color: white;
-                                background: linear-gradient(#080808, #080808), 
-                                            linear-gradient(#343434, #343434);
-                                background-clip: content-box, border-box;
-                                border-radius: 2rem;
-                                border: 2px solid #080808;
-                                font-weight: bold;
-                                font-style: italic;
-                                cursor: pointer;
-
-                                &:hover {
-                                    background: linear-gradient(#151515, #151515), 
-                                                linear-gradient(#343434, #343434);
-                                    background-clip: content-box, border-box;
-                                }
-                            }
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            width: 100%;
+                            height: calc(100% - 2rem);
+                            background-image: 
+                                radial-gradient(rgba(0, 0, 0, .4) .2px, transparent 1.2px), 
+                                radial-gradient(rgba(0, 0, 0, .4) .2px, transparent 1.2px); 
+                            background-size: 5px 5px;
+                            background-position: 0 0, 2.5px 2.5px;
+                            z-index: 1;
                         }
                     }
+                }
+
+                .list-container_linear-style {
+                    display: flex;
+                    flex-direction: column;
+                    gap: .8rem;
+                    margin: .8rem 1rem;
+                    width: calc(100% - 2rem);
+                    text-shadow: var(--text-shadow-black);
+                    font-weight: bold;
                 }
             }
         }
@@ -634,4 +508,15 @@ watch([activeIdx_Column, activeIdx_Row], () => {
         background-color: var(--flicker-color-1);
     }
 }
+
+@keyframes zzz-loading_loop {
+    0% {
+        background-position: 0 6px;
+    }
+
+    100% {
+        background-position: 0 -4494px;
+    }
+}
+
 </style>

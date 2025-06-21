@@ -21,6 +21,7 @@ import { authorInfo } from '~/data/author';
     justify-content: center;
     padding: 10px 0;
     width: 100%;
+    height: var(--footer-height);
     background-color: #000;
     color: #fff;
     font-size: 1rem;
