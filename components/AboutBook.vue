@@ -42,6 +42,7 @@ const handleCardKeyboardNavigation = (event: KeyboardEvent) => {
     }
     activeIdx_Card.value = newIndex;
 };
+// ===== 卡片式 end =====
 
 // 预加载图片
 const preloadImages = (items: any[]) => {
@@ -100,11 +101,12 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                 </li>
             </ul>
         </div>
-        <div class="book_projection">
-            <div class="book_clip">
+        <div class="book_projection"> 
+            <!-- clip-path 放在 style 标签内，css 代码高亮会混乱 -->
+            <div class="book_clip" style="clip-path: polygon(var(--clip-size) 0, 100% 0, 100% 100%, 0 100%, 0 var(--clip-size));">
                 <div class="left-bar">
-                    <div class="left-bar_clip">
-                        <ul class="flex flex-col items-center justify-start p-[0.4rem] w-full h-[85%] bg-[#4B4B4B] rounded-[.5rem_.5rem_1.5rem_1.5rem] gap-[0.4rem]">
+                    <div class="left-bar_clip" style="clip-path: polygon(calc(var(--clip-size) / 1.3) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--clip-size) / 1.3));">
+                        <ul class="flex flex-col items-center justify-start p-[0.4rem] w-full h-[85%] bg-[#4B4B4B] rounded-[0_0_1.5rem_1.5rem]">
                             <li
                                 v-for="(item, idx) in aboutInfo[activeIdx_Column]['item']"
                                 :key="idx"
@@ -116,7 +118,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                     </div>
                 </div>
                 <div class="right-part">
-                    <div class="mt-[4rem] mb-[1.5rem] w-full h-full bg-[#141414] border-3xl shadow-[0_0_8px_rgba(0,0,0,.7),0_0_8px_inset_black] rounded-[2rem]">
+                    <div class="mt-[4rem] mb-[1.5rem] w-full h-full bg-[#141414] border-3xl shadow-[0_0_2px_black,0_0_4px_inset_black] rounded-[2rem]">
                         <div class="list-container_net-style" v-if="aboutInfo[activeIdx_Column].title === '关于我'">
                             <div v-if="isLoading" class="flex justify-center items-center w-full">
                                 <div class="zzz-loading_anim"></div>
@@ -139,7 +141,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                                 </ul>
                                 <div class="card-detail">
                                     <div style="z-index: 2; padding: 1rem; width: 100%;">
-                                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                                        <div class="flex flex-row justify-between">
                                             <h1 class="font-bold text-3xl text-shadow-black">{{ aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].title }}</h1>
                                             <div>
                                                 <img 
@@ -181,6 +183,9 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="book_page">
+            <div class="absolute w-4/5 h-[99%] right-1 z-10 border-dashed border-[2px] rounded-[2rem] border-[#232323]"></div>
         </div>
     </div>
 </template>
@@ -275,9 +280,8 @@ watch([activeIdx_Column, activeIdx_Row], () => {
             height: 100%;
             background: linear-gradient(to bottom, #3a3a3a, #202020);
             border-radius: 2rem;
-            clip-path: polygon(var(--clip-size) 0, 100% 0, 100% 100%, 0 100%, 0 var(--clip-size));
 
-            // 仿粗糙材质
+            /* 仿粗糙材质 */
             &::before {
                 content: '';
                 position: absolute;
@@ -306,7 +310,6 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                     justify-content: flex-end;
                     width: 100%;
                     height: 100%;
-                    clip-path: polygon(calc(var(--clip-size) / 1.3) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--clip-size) / 1.3));
                     background-color: #646567;
                     border-radius: 1.5rem;
 
@@ -323,7 +326,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                         border-radius: 1.5rem;
                         z-index: 1;
                         pointer-events: none;
-                        box-shadow: inset 0 0 5px rgba(0, 0, 0, .4);
+                        box-shadow: inset 0 0 2px rgba(0, 0, 0, .4);
                     }
 
                     li {
@@ -342,7 +345,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
 
                         &.active {
                             color: white;
-                            background: linear-gradient(-120deg, #1C89FE, #2D4ED5);
+                            background: linear-gradient(-150deg, #1C89FE, #102ea7);
                             border-radius: .4rem;
                             text-shadow: var(--text-shadow-black);
                             font-weight: bold;
@@ -472,6 +475,34 @@ watch([activeIdx_Column, activeIdx_Row], () => {
             }
         }
     }
+
+    .book_page {
+        position: absolute;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        width: 10%;
+        height: 100%;
+        background: linear-gradient(to bottom, #3a3a3a, #202020);
+        border-radius: 2rem;
+        border: 3px solid black;
+        right: -2rem;
+        z-index: -1;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 2rem;
+            background-image: 
+                radial-gradient(#343434 .2px, transparent 1.2px),
+                radial-gradient(#343434 .2px, transparent 1.2px);
+            background-size: 5px 5px;
+            background-position: 0 0, 2.5px 2.5px;
+            z-index: -1;
+        }
+    }
 }
 
 @keyframes move-stripes {
@@ -479,7 +510,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
         transform: translateX(0) translateY(0);
     }
     100% {
-        transform: translateX(-29px) translateY(50.23px);  // 25*cot(60deg) = 43.3
+        transform: translateX(-29px) translateY(50.23px);  /* 25*cot(60deg) = 43.3 */
     }
 }
 
@@ -518,5 +549,4 @@ watch([activeIdx_Column, activeIdx_Row], () => {
         background-position: 0 -4494px;
     }
 }
-
 </style>

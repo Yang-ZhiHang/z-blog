@@ -38,6 +38,26 @@ export const aboutInfo: AboutItem[] = [
                         description: 'PostgreSQL 是一个功能强大的开源关系型数据库，社区庞大。'
                     },
                 ]
+            },
+            {
+                title: "测试1",
+                item: [
+                    {
+                        title: 'Git',
+                        url: 'https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Git.svg',
+                        description: 'Git，代码版本管理工具，支持分支管理、代码合并和远程协作。'
+                    },
+                    {
+                        title: 'TypeScript',
+                        url: 'https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/TypeScript.svg',
+                        description: 'TypeScript 是 JavaScript 的超集，添加了静态类型系统。它提供了严格的类型检查，以便于在编程过程中发现问题。'
+                    },
+                    {
+                        title: 'PostgreSQL',
+                        url: 'https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/PostgreSQL-Dark.svg',
+                        description: 'PostgreSQL 是一个功能强大的开源关系型数据库，社区庞大。'
+                    },
+                ]
             }
         ],
     },
@@ -55,6 +75,23 @@ export const aboutInfo: AboutItem[] = [
                         title: 'xiaozhi-webui: 一个基于 Vue3 实现的 Web 版小智 AI，已完成文字聊天、语音聊天，欢迎 PR',
                         url: 'https://github.com/yang-zhihang/xiaozhi-webui'
                     }
+                ]
+            },
+            {
+                title: "测试1",
+                item: [
+                    {
+                        title: 'Git',
+                        url: 'https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Git.svg',
+                    },
+                    {
+                        title: 'TypeScript',
+                        url: 'https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/TypeScript.svg',
+                    },
+                    {
+                        title: 'PostgreSQL',
+                        url: 'https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/PostgreSQL-Dark.svg',
+                    },
                 ]
             }
         ]

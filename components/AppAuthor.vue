@@ -38,7 +38,7 @@ const expPercentage = (currentExp / totalExp) * 100;
     flex-shrink: 0;
     align-items: center;
     margin: .5rem 1rem;
-    width: 300px;
+    width: max-content;
     height: 3rem;
     background: linear-gradient(0, #151515, #222222), linear-gradient(0, #161616, #353535);
     background-origin: padding-box, border-box;
@@ -72,6 +72,10 @@ const expPercentage = (currentExp / totalExp) * 100;
         justify-content: center;
         gap: 0.2rem;
 
+        @media (max-width: 650px) {
+            display: none;
+        }
+
         .username {
             margin-bottom: 0.2rem;
             line-height: 1rem;
@@ -81,7 +85,7 @@ const expPercentage = (currentExp / totalExp) * 100;
 
         .exp-bar {
             position: relative;
-            width: 100%;
+            width: 180px;
             height: 1rem;
             background: linear-gradient(90deg, #222222, #222222), linear-gradient(#141414, #2A2A2A);
             background-origin: padding-box, border-box;
@@ -118,6 +122,10 @@ const expPercentage = (currentExp / totalExp) * 100;
         margin: 0 1rem 0 .5rem;
         flex-shrink: 0;
 
+        @media (max-width: 650px) {
+            display: none;
+        }
+        
         .level-number {
             line-height: 1.8rem;
             font-size: 1.8rem;

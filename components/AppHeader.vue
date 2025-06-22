@@ -53,6 +53,10 @@ const route = useRoute()
             0 0 0 1px rgba(255, 255, 255, .1),
             inset 0 0 4px rgba(0, 0, 0, 1);
 
+        @media (max-width: 650px) {
+            display: none;
+        }
+        
         // 顶部光泽
         &::before {
             content: '';

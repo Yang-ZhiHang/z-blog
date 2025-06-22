@@ -1,0 +1,328 @@
+// out: false
+
+:root {
+  --background-color-blockquote: rgb(22, 22, 22);
+
+  --background-color-table-header: rgb(19, 19, 19);
+  --background-color-table-cell: rgba(37, 37, 37, 0.5);
+  --border-color-table: rgba(40, 40, 40, 0.8);
+  --padding-table-cell: .5rem;
+
+  --font-color-markdown-previewer: #fff;
+  --font-color-markdown-heading: #ffffff;
+  --font-color-markdown-code: #ffa200;
+  --background-color-markdown-code: rgba(255, 162, 0, 0.1);
+  --background-color-markdown-previewer: rgb(16, 33, 60);
+
+  --line-margin: 1.25rem;
+}
+
+.markdown-body {
+  @media (min-width: 650px) {
+    border-radius: 1rem;
+  }
+
+  transition: box-shadow 0.3s ease;
+
+  &:not(.custom) {
+    padding: 1.8rem;
+
+    @media (max-width: 650px) {
+      padding: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      padding: 0.5rem;
+    }
+  }
+
+  p {
+    margin-bottom: 1.25rem;
+
+    img {
+      display: block;
+      margin-bottom: var(--line-margin);
+      border-radius: .5rem;
+    }
+  }
+
+  /* 标题样式 start
+    --------------------------------------------------- */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    border-bottom: none;
+    text-align: left;
+    color: var(--font-color-markdown-heading);
+  }
+
+  h1 {
+    margin-bottom: var(--line-margin);
+    padding-bottom: 1rem;
+    line-height: 3.5rem;
+    font-size: 3rem;
+    z-index: 1;
+    border-bottom: 1px solid grey
+  }
+
+  h2 {
+    margin-bottom: var(--line-margin);
+    line-height: 2.5rem;
+    font-size: 2.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  h3 {
+    margin-bottom: var(--line-margin);
+    line-height: 1.8rem;
+    font-size: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  h4 {
+    margin-bottom: var(--line-margin);
+    line-height: 1.2rem;
+    font-size: 1.5rem;
+  }
+
+  /* 标题样式 end
+    --------------------------------------------------- */
+
+  /* 引用样式 start
+    --------------------------------------------------- */
+  blockquote {
+    position: relative;
+    margin-bottom: var(--line-margin);
+    padding: 1rem 1.5rem !important;
+    text-align: left;
+    background-color: var(--background-color-blockquote);
+    border-left: 0 solid;
+    border-radius: 8px;
+    color: var(--font-color-markdown-previewer);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: -10px;
+      width: 20px;
+      height: 20px;
+      background-image: url('/icons/quote.webp');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: invert(80%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    }
+
+    p {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+    }
+  }
+
+  /* 引用样式 end
+    --------------------------------------------------- */
+
+  /* 行内代码样式 start
+    --------------------------------------------------- */
+  p code,
+  td code,
+  li code {
+    padding: 0.04rem 0.3rem;
+    color: var(--font-color-markdown-code) !important;
+    background-color: var(--background-color-markdown-code, rgba(100, 255, 218, 0.1)) !important;
+  }
+
+  /* 行内代码样式 end
+    --------------------------------------------------- */
+
+  /* Scrollbar样式 start
+    --------------------------------------------------- */
+  // 滚动条宽度
+  ::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  // 滚动条滑块
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(200, 200, 200);
+    border-radius: 10px;
+  }
+
+  // 滚动条背景
+  ::-webkit-scrollbar-track {
+    background: unset;
+  }
+
+  // 水平和垂直滚动条交汇处
+  ::-webkit-scrollbar-corner {
+    background: unset;
+  }
+
+  /* Scrollbar样式 end
+    --------------------------------------------------- */
+
+  /* 表格样式 start
+    --------------------------------------------------- */
+  table {
+    display: table;
+    margin-bottom: var(--line-margin);
+    width: 100%;
+    line-height: 2rem;
+    border-collapse: collapse;
+    border: 1px solid var(--border-color-table, #ddd);
+
+    @media (max-width: 640px) {
+      display: block;
+      border: none;
+    }
+
+    tr:nth-child(2n) {
+      background-color: transparent;
+    }
+
+    th {
+      background-color: var(--background-color-table-header);
+      color: var(--font-color-markdown-heading);
+      border: 1px solid var(--border-color-table, #ddd) !important;
+      padding: var(--padding-table-cell);
+    }
+
+    td {
+      background-color: var(--background-color-table-cell);
+      color: var(--font-color-markdown-previewer);
+      border: 1px solid var(--border-color-table, #ddd) !important;
+      padding: var(--padding-table-cell);
+    }
+  }
+  /* 表格样式 end
+    --------------------------------------------------- */
+
+  /* 代码块样式 start
+    --------------------------------------------------- */
+  // 代码块顶部样式
+  pre:not(.custom) {
+    position: relative;
+    margin-bottom: var(--line-margin);
+    padding-top: 2.5rem;
+    background: #000000;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+    // 代码块顶部标签（显示代码语言）
+    &::before {
+      position: absolute;
+      top: 0.5rem;
+      right: 4.2rem;
+      padding: 0.25rem 0.5rem;
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      color: #ccc;
+      font-size: 0.75rem;
+      transition: all 0.1s ease-in-out;
+      border-radius: 0.2rem;
+      opacity: 0;
+    }
+
+    &:hover {
+      &::before {
+        background-color: #393c40;
+        opacity: 1;
+      }
+    }
+
+    // 代码块顶部的三个小圆点
+    &::after {
+      content: ' ';
+      position: absolute;
+      border-radius: 50%;
+      background: #fc625d;
+      width: 0.6875rem;
+      height: 0.6875rem;
+      left: 1.25rem;
+      top: 0.9rem !important;
+      box-shadow:
+        1.25rem 0 #fdbc40,
+        2.5rem 0 #35cd4b;
+      z-index: 2 !important;
+    }
+
+    // 复制按钮
+    .code-copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ccc;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease, background-color 0.2s ease;
+      z-index: 10;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+      }
+
+      &.copied {
+        background-color: #35cd4b;
+        color: #fff;
+        cursor: url(/cur/default.cur), default;
+      }
+    }
+
+    &:hover .code-copy-btn {
+      opacity: 1;
+    }
+
+    &.code-folded {
+      overflow-y: hidden;
+    }
+  }
+
+  // 折叠按钮样式
+  .code-fold-button {
+    font-family: 'Noto Serif SC', sans-serif;
+    padding-bottom: 0.3rem;
+    background: linear-gradient(to bottom, #272822, #464645);
+    color: white;
+    border-radius: 0 0 0.3rem 0.3rem;
+    text-align: center;
+    cursor: url(/cur/hover.cur), pointer;
+  }
+
+  /* 代码块内容部分样式 end
+    --------------------------------------------------- */
+
+
+  /* 列表样式 start
+    --------------------------------------------------- */
+  ul,
+  ol {
+    margin-bottom: var(--line-margin);
+  }
+
+  ul li,
+  ol li {
+    margin-left: 2em;
+  }
+
+  ul li {
+    list-style: circle;
+  }
+
+  ol li {
+    list-style: decimal;
+  }
+
+  /* 列表样式 end
+    --------------------------------------------------- */
+}
