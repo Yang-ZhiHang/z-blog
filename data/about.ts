@@ -72,13 +72,13 @@ export const aboutInfo: AboutItem[] = [
                         url: 'https://github.com/yang-zhihang/xiaozhi-webui'
                     },
                     {
-                        title: 'xiaozhi-webui: 一个基于 Vue3 实现的 Web 版小智 AI，已完成文字聊天、语音聊天，欢迎 PR',
-                        url: 'https://github.com/yang-zhihang/xiaozhi-webui'
+                        title: 'nfc-stc-pn532: 基于 STC89C52 和 PN532 集成 NFC 模块的宿舍智能门禁系统',
+                        url: 'https://github.com/yang-zhihang/nfc-stc-pn532'
                     }
                 ]
             },
             {
-                title: "测试1",
+                title: "测试2",
                 item: [
                     {
                         title: 'Git',

@@ -128,7 +128,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                                     <li 
                                         v-for="(item, idx) in aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item']"
                                         :key="idx"
-                                        class="w-[18%]"
+                                        class="w-[5rem]"
                                         :class="{ active: activeIdx_Card === idx }"
                                     >
                                         <div class="mb-1" @click="handleClick_Card(idx)">
@@ -185,7 +185,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
             </div>
         </div>
         <div class="book_page">
-            <div class="absolute w-4/5 h-[99%] right-1 z-10 border-dashed border-[2px] rounded-[2rem] border-[#232323]"></div>
+            <div class="absolute w-4/5 h-[99%] right-1 z-10 border-dashed border-[2px] rounded-[2rem] border-[rgba(0,0,0,0.3)]"></div>
         </div>
     </div>
 </template>
@@ -209,6 +209,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
         height: 2px;
         border: 3.5px solid black;
         border-radius: 1rem;
+        box-shadow: -.2px 1px 1px rgba(255,255,255,.2);
         z-index: 1;
 
         &::after {
@@ -230,8 +231,8 @@ watch([activeIdx_Column, activeIdx_Row], () => {
 
     .book_projection {
         position: relative;
-        width: 74rem;
-        aspect-ratio: 2/1;
+        max-width: 74rem;
+        height: 37rem;
         filter:
             drop-shadow(-1px -1px #020202)
             drop-shadow(-1.5px 1.5px #020202)
@@ -278,7 +279,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
             align-items: end;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, #3a3a3a, #202020);
+            background: linear-gradient(to bottom, #404040, #2C2C2C);
             border-radius: 2rem;
 
             /* 仿粗糙材质 */
@@ -288,11 +289,15 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                 width: 100%;
                 height: 100%;
                 border-radius: 2rem;
+                // background-image: url("/a.png");
+                // background-size: 8px 8px;
+                // mix-blend-mode: multiply;
+                // opacity: 0.4;
                 background-image: 
-                    radial-gradient(#343434 .2px, transparent 1.2px),
-                    radial-gradient(#343434 .2px, transparent 1.2px);
-                background-size: 5px 5px;
-                background-position: 0 0, 2.5px 2.5px;
+                    radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 2px),
+                    radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 2px);
+                background-size: 6px 6px;
+                background-position: 0 0, 3px 3px;
                 z-index: -1;
             }
 
@@ -485,7 +490,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
         height: 100%;
         background: linear-gradient(to bottom, #3a3a3a, #202020);
         border-radius: 2rem;
-        border: 3px solid black;
+        border: 3.5px solid black;
         right: -2rem;
         z-index: -1;
         
@@ -496,10 +501,10 @@ watch([activeIdx_Column, activeIdx_Row], () => {
             height: 100%;
             border-radius: 2rem;
             background-image: 
-                radial-gradient(#343434 .2px, transparent 1.2px),
-                radial-gradient(#343434 .2px, transparent 1.2px);
-            background-size: 5px 5px;
-            background-position: 0 0, 2.5px 2.5px;
+                radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 2px),
+                radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 2px);
+            background-size: 6px 6px;
+            background-position: 0 0, 3px 3px;
             z-index: -1;
         }
     }

@@ -41,6 +41,7 @@ a {
 /* 设置滚动条宽度，箭头会自动消除 */
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 
 /* 滚动条滑块 */

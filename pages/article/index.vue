@@ -25,8 +25,10 @@ provide('articleLoading', {
 
 <style lang="less" scoped>
 .article {
-    margin: 2rem;
+    margin: 2rem auto;
+    padding: 0 2rem;
     position: relative;
+    max-width: 1400px;
     min-height: 300px;
 
     .loading-container {
@@ -50,6 +52,22 @@ provide('articleLoading', {
         align-items: start;
         grid-template-columns: repeat(5, 1fr);
         gap: 20px;
+
+        @media (max-width: 1200px) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: 900px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: 650px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: 450px) {
+            grid-template-columns: 1fr;
+        }
 
         .article-card {
             animation: fade-in 0.1s ease-in-out forwards;

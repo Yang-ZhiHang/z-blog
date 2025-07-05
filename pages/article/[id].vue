@@ -18,7 +18,6 @@ const content = ref<string>(cardDetail.content || '');
 <style lang="less" scoped>
 .article {
     margin: 2rem auto;
-    max-width: 1000px;
     padding: 20px;
     font-size: 16px;
     color: white;

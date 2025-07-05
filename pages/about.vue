@@ -11,5 +11,6 @@
 <style lang="less" scoped>
 .about {
     margin: 0 auto;
+    overflow: auto;
 }
 </style>
