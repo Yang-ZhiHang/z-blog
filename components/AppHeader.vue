@@ -24,7 +24,7 @@ const toggleMobileMenu = () => {
                     class="relative z-0 hover:text-[#808080]"
                 >
                     {{ nav.title }}
-                    <div class="bg absolute top-1/2 left-1/2 w-[9.5rem] h-[2.5rem] rounded-[.5rem_1rem] transform-[translate(-50%,-50%)_skewX(var(--inclination-degree))] z-[-1]" />
+                    <div class="bg absolute top-1/2 left-1/2 w-[9.5rem] h-[2.5rem] rounded-[.5rem_1rem] -translate-x-1/2 -translate-y-1/2 skew-x-[var(--inclination-degree)] z-[-1]" />
                 </NuxtLink>
             </li>
         </ul>
@@ -47,7 +47,7 @@ const toggleMobileMenu = () => {
                         @click="mobileMenuVisible = false"
                     >
                         {{ nav.title }}
-                        <div class="bg absolute top-1/2 left-1/2 w-[9.5rem] h-[2.5rem] rounded-[.5rem_1rem] transform-[translate(-50%,-50%)_skewX(var(--inclination-degree))] z-[-1]" />
+                        <div class="bg absolute top-1/2 left-1/2 w-[9.5rem] h-[2.5rem] rounded-[.5rem_1rem] -translate-x-1/2 -translate-y-1/2 skew-x-[var(--inclination-degree)] z-[-1]" />
                     </NuxtLink>
                 </li>
             </ul>
@@ -127,9 +127,10 @@ const toggleMobileMenu = () => {
             left: 12px;
             right: -3px;
             height: 1px;
+            width: 80%;
             background: linear-gradient(90deg,
                     transparent,
-                    rgba(255, 255, 255, 0.2) 2%,
+                    rgba(255, 255, 255, 0.2) 10%,
                     rgba(255, 255, 255, 0.2) 70%,
                     transparent);
             border-radius: 2rem;

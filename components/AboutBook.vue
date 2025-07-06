@@ -231,8 +231,8 @@ watch([activeIdx_Column, activeIdx_Row], () => {
 
     .book_projection {
         position: relative;
-        max-width: 74rem;
-        height: 37rem;
+        width: 74rem;
+        aspect-ratio: 2/1;
         filter:
             drop-shadow(-1px -1px #020202)
             drop-shadow(-1.5px 1.5px #020202)
