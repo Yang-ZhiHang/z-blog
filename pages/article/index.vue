@@ -1,8 +1,32 @@
 <script lang="ts" setup>
 import { articleInfoList } from '~/data/article';
-import { ref, provide } from 'vue';
+import { ref, provide, onMounted } from 'vue';
 
 const isLoading = ref(true);
+const displayCount = ref(10);
+
+const loadMore = () => {
+  if (displayCount.value < articleInfoList.length) {
+    displayCount.value += 10;
+    displayCount.value = Math.min(displayCount.value, articleInfoList.length);
+  }
+};
+
+const handleWindowScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollHeight - scrollTop <= clientHeight + 100) {
+        loadMore();
+    }
+};
+
+// 懒加载
+onMounted(() => {
+  window.addEventListener('scroll', handleWindowScroll);
+});
+
+// 等待子组件图片加载完成后才能渲染瀑布流
 provide('articleLoading', {
     isLoading,
     setLoaded: () => isLoading.value = false
@@ -16,7 +40,7 @@ provide('articleLoading', {
         </div>
         <div v-show="!isLoading" class="article-list">
             <ArticleCard
-                v-for="(articleInfo, idx) in articleInfoList" :key="idx" :article-info="articleInfo"
+                v-for="(articleInfo, idx) in articleInfoList.slice(0, displayCount)" :key="idx" :article-info="articleInfo"
                 class="article-card" :style="{ animationDelay: `${0.02 * idx}s` }" 
             />
         </div>

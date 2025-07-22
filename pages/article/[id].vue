@@ -21,11 +21,11 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <div v-if="isLoading" class="loading-container">
-        <div class="zzz-loading_anim" />
-    </div>
-    <div v-else class="article">
-        <MarkdownPreview :markdown="cardDetail?.content" />
+    <div class="article">
+        <div v-if="isLoading" class="loading-container">
+            <div class="zzz-loading_anim" />
+        </div>
+        <MarkdownPreview v-else :markdown="cardDetail?.content" />
     </div>
 </template>
 <style lang="less" scoped>
