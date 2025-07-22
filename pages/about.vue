@@ -3,14 +3,9 @@
 </script>
 
 <template>
-    <div class="about">
-        <AboutBook />
+    <div class="overflow-auto">
+        <div class="mx-auto w-[80rem] overflow-visible">
+            <AboutBook />
+        </div>
     </div>
 </template>
-
-<style lang="less" scoped>
-.about {
-    margin: 0 auto;
-    overflow: auto;
-}
-</style>

@@ -1,4 +1,15 @@
-export interface AboutItem {
+export interface AboutUnit {
     title: string;
-    item: any,
+    url: string;
+    description?: string;
+}
+
+export interface AboutColumn {
+    title: string;
+    item: AboutUnit[];
+}
+
+export interface AboutGroup {
+    title: string;
+    item: AboutColumn[],
 }

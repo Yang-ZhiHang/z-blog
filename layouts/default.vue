@@ -11,6 +11,7 @@
 
 <style lang="less" scoped>
 .content {
+    position: relative;
     margin-top: var(--header-height);
     width: 100%;
     min-height: 100vh;

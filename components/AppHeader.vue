@@ -30,11 +30,11 @@ const toggleMobileMenu = () => {
         </ul>
         <div class="mobile-menu-wrapper relative h-full aspect-square">
             <button class="mobile-menu" @click="toggleMobileMenu">
-                <span v-for="_ in 3" class="absolute block  top-1/2 left-0 bg-[#232323] w-[70%] h-[6px] rounded-full"></span>
+                <span v-for="_ in 3" :key="_" class="absolute block  top-1/2 left-0 bg-[#232323] w-[70%] h-[6px] rounded-full" />
             </button>
         </div>
         <Transition name="fade-in">
-            <ul class="nav-mobile absolute top-[var(--header-height)] right-0 p-4 mr-[2rem]" v-if="mobileMenuVisible">
+            <ul v-if="mobileMenuVisible" class="nav-mobile absolute top-[var(--header-height)] right-0 p-2 bg-[#050505] rounded-[1rem] border-[3px] border-[#383838]">
                 <li 
                 v-for="(nav, idx) in navList" 
                 :key="idx"
@@ -136,13 +136,13 @@ const toggleMobileMenu = () => {
             border-radius: 2rem;
         }
             
-        a.active {
-            color: black;
-        }
+        // a.active {
+        //     color: black;
+        // }
 
-        &:has(a.active) .bg {
-            animation: gradient-color 1.48s linear infinite, scale-bg .68s linear infinite;
-        }
+        // &:has(a.active) .bg {
+        //     animation: gradient-color 1.48s linear infinite, scale-bg .68s linear infinite;
+        // }
     }
 }
 

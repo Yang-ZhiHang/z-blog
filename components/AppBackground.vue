@@ -23,8 +23,8 @@ import { authorInfo } from '~/data/author';
 .background {
     position: fixed;
     top: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: -1;
 
     &::before {
@@ -47,9 +47,9 @@ import { authorInfo } from '~/data/author';
         display: flex;
         flex-direction: row;
         position: absolute;
-        top: var(--header-height);
+        top: 50%;
         left: 50%;
-        transform: translate(-25%, -50%);
+        transform: translate(-50%, -50%);
         z-index: -1;
         animation: slide 100s linear infinite;
 
@@ -64,8 +64,8 @@ import { authorInfo } from '~/data/author';
             color: #242424;
 
             .text-line {
-                font-size: 30vw;
-                line-height: 30vw;
+                font-size: 24rem;
+                line-height: 24rem;
                 overflow: hidden;
             }
         }
@@ -74,11 +74,11 @@ import { authorInfo } from '~/data/author';
 
 @keyframes slide {
     0% {
-        transform: translate(-25%, -50%) rotateZ(-15deg) translateX(0);
+        transform: translate(-50%, -50%) rotateZ(-15deg) translateX(25%);
     }
 
     100% {
-        transform: translate(-25%, -50%) rotateZ(-15deg) translateX(-50%);
+        transform: translate(-50%, -50%) rotateZ(-15deg) translateX(-25%);
     }
 }
 </style>

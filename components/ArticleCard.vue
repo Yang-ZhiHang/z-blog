@@ -69,6 +69,11 @@ onMounted(() => {
     border-radius: 1.5rem 1.5rem 0 1.5rem;
     overflow: hidden;
     cursor: pointer;
+    transition: all .1s ease-in-out;
+
+    &:hover {
+        border: 4px solid var(--flicker-color-2);
+    }
 
     .views {
         position: absolute;
@@ -114,6 +119,7 @@ onMounted(() => {
             margin: 0;
             color: #929292;
             font-size: 1rem;
+            font-weight: bold;
             display: -webkit-box;
 
             // line-clamp 是非标准 CSS 属性，不一定生效
@@ -129,9 +135,6 @@ onMounted(() => {
             color: #AAAAAA;
             font-weight: bold;
             font-size: .8rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
     }
 }

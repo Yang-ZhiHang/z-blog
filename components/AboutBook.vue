@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { aboutInfo } from '~/data/about'
+import type { AboutUnit } from '~/types/about'
 
 const handleNavigate = (url: string) => {
     window.open(url, '_blank')
@@ -45,7 +46,7 @@ const handleCardKeyboardNavigation = (event: KeyboardEvent) => {
 // ===== 卡片式 end =====
 
 // 预加载图片
-const preloadImages = (items: any[]) => {
+const preloadImages = (items: AboutUnit[]) => {
     isLoading.value = true
     loadedImages.value.clear()
     
@@ -119,12 +120,12 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                 </div>
                 <div class="right-part">
                     <div class="mt-[4rem] mb-[1.5rem] w-full h-full bg-[#141414] border-3xl shadow-[0_0_2px_black,0_0_4px_inset_black] rounded-[2rem]">
-                        <div class="list-container_net-style" v-if="aboutInfo[activeIdx_Column].title === '关于我'">
+                        <div v-if="aboutInfo[activeIdx_Column].title === '关于我'" class="list-container_net-style">
                             <div v-if="isLoading" class="flex justify-center items-center w-full">
-                                <div class="zzz-loading_anim"></div>
+                                <div class="zzz-loading_anim" />
                             </div>
                             <div v-else class="flex justify-between w-full h-full">
-                                <ul class="flex flex-wrap content-start m-4 gap-[2.5%] h-full">
+                                <ul class="flex flex-wrap content-start m-4 gap-[2.5%] w-full h-full">
                                     <li 
                                         v-for="(item, idx) in aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item']"
                                         :key="idx"
@@ -132,7 +133,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                                         :class="{ active: activeIdx_Card === idx }"
                                     >
                                         <div class="mb-1" @click="handleClick_Card(idx)">
-                                            <img :src="item.url" class="relative block m-0 w-full border-[3px] border-solid border-[#3F3F3F] rounded-[var(--stack-card-border-radius)] cursor-pointer z-[1]" />
+                                            <img :src="item.url" class="relative block m-0 w-full border-[3px] border-solid border-[#3F3F3F] rounded-[var(--stack-card-border-radius)] cursor-pointer z-[1]">
                                         </div>
                                         <span class="block w-full py-1.5 px-0 text-center text-xs font-bold leading-3 text-white bg-black rounded-full cursor-pointer">
                                             {{ item.title }}
@@ -147,12 +148,12 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                                                 <img 
                                                     :src="aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].url"
                                                     class="w-[5rem] border-[var(--stack-card-border-radius)]"
-                                                />
-                                                <img class="absolute top-[2.5rem] right-[3rem] w-2/5 aspect-square z-[-1] grayscale-[1] opacity-[.3]" :src="aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].url"/>
+                                                >
+                                                <img class="absolute top-[2.5rem] right-[3rem] w-2/5 aspect-square z-[-1] grayscale-[1] opacity-[.3]" :src="aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].url">
                                             </div>
                                         </div>  
                                         <div class="mt-8 whitespace-pre-line indent-[2em]">
-                                            <p v-for="(paragraph, index) in aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].description.split('\n')" :key="index">
+                                            <p v-for="(paragraph, index) in aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].description!.split('\n')" :key="index">
                                                 {{ paragraph }}
                                             </p>
                                         </div>
@@ -160,7 +161,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                                 </div>
                             </div>
                         </div>
-                        <ul class="list-container_linear-style" v-else-if="aboutInfo[activeIdx_Column].title === 'Github'">
+                        <ul v-else-if="aboutInfo[activeIdx_Column].title === 'Github'" class="list-container_linear-style">
                             <li
                                 v-for="(item, idx) in aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item']"
                                 :key="idx"
@@ -173,8 +174,8 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                                     {{ item.title }}
                                 </span>
                                 <button
-                                    @click.prevent="handleNavigate(item.url)"
-                                    class="absolute right-0 top-0 m-[.1rem] p-[2px] w-[8rem] h-[calc(100%-.2rem)] text-white bg-[linear-gradient(#080808,#080808),linear-gradient(#343434,#343434)] bg-clip-content border-2 border-[#080808] rounded-[2rem] leading-4 font-bold italic cursor-pointer hover:bg-[linear-gradient(#151515,#151515),linear-gradient(#343434,#343434)]"
+                                class="absolute right-0 top-0 m-[.1rem] p-[2px] w-[8rem] h-[calc(100%-.2rem)] text-white bg-[linear-gradient(#080808,#080808),linear-gradient(#343434,#343434)] bg-clip-content border-2 border-[#080808] rounded-[2rem] leading-4 font-bold italic cursor-pointer hover:bg-[linear-gradient(#151515,#151515),linear-gradient(#343434,#343434)]"
+                                @click.prevent="handleNavigate(item.url)"
                                 >
                                     前往
                                 </button>

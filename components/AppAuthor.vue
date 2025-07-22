@@ -72,7 +72,7 @@ const expPercentage = (currentExp / totalExp) * 100;
         justify-content: center;
         gap: 0.2rem;
 
-        @media (max-width: 650px) {
+        @media (max-width: 312px) {
             display: none;
         }
 
@@ -93,6 +93,10 @@ const expPercentage = (currentExp / totalExp) * 100;
             border: 2px solid transparent;
             border-radius: 0.4rem;
 
+            @media (max-width: 400px) {
+                width: 100px;    
+            }
+
             .exp-progress {
                 position: absolute;
                 top: -1px;
@@ -105,8 +109,8 @@ const expPercentage = (currentExp / totalExp) * 100;
             .exp-text {
                 position: absolute;
                 top: 50%;
-                left: 25%;
-                transform: translate(-50%, -50%);
+                left: 0;
+                transform: translate(0, -50%);
                 font-size: 1rem;
                 line-height: 1rem;
                 color: white;
@@ -121,10 +125,6 @@ const expPercentage = (currentExp / totalExp) * 100;
         align-items: center;
         margin: 0 1rem 0 .5rem;
         flex-shrink: 0;
-
-        @media (max-width: 650px) {
-            display: none;
-        }
         
         .level-number {
             line-height: 1.8rem;

@@ -29,7 +29,7 @@ provide('articleLoading', {
     padding: 0 2rem;
     position: relative;
     max-width: 1400px;
-    min-height: 300px;
+    min-height: 100vh;
 
     .loading-container {
         position: absolute;
