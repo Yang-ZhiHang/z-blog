@@ -1,75 +1,39 @@
-# Nuxt Minimal Starter
+# Z-BLOG
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+> 本项目供学习交流使用，有问题欢迎联系 zamyang@qq.com
 
-## Setup
+## 简介
 
-Make sure to install dependencies:
+绝区零是米哈游旗下的一款次元养成类游戏。
+
+本项目 Z-BLOG 是基于 Vue3+Nuxt 的开源博客前端界面，使用 Z-BLOG 的开发者可以搭建自己的静态博客网站，或者根据自己的需要搭建后端结合使用。
+
+文章列表中的图片取自小红书。
+
+## 页面预览
+
+![](https://raw.githubusercontent.com/Yang-ZhiHang/ZBlog/master/demo/文章.webp)
+
+![](https://raw.githubusercontent.com/Yang-ZhiHang/ZBlog/master/demo/关于.webp)
+
+## 功能特点
+
+- [] 复刻绝区零的绳网、快速手册等样式
+- [] 文章列表支持懒加载
+- [] 支持通过配置文件统一修改网站信息
+
+## 快速开始
+
+1. 安装依赖
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+2. 启动项目
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+pnpm run dev
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+项目启动后进入 `localhost:3000` 即可预览
