@@ -12,15 +12,15 @@
 
 ## 页面预览
 
-![](https://raw.githubusercontent.com/Yang-ZhiHang/ZBlog/master/demo/文章.webp)
+![](https://raw.githubusercontent.com/Yang-ZhiHang/z-blog/master/demo/文章.webp)
 
-![](https://raw.githubusercontent.com/Yang-ZhiHang/ZBlog/master/demo/关于.webp)
+![](https://raw.githubusercontent.com/Yang-ZhiHang/z-blog/master/demo/关于.webp)
 
 ## 功能特点
 
-- [] 复刻绝区零的绳网、快速手册等样式
-- [] 文章列表支持懒加载
-- [] 支持通过配置文件统一修改网站信息
+- [x] 复刻绝区零的绳网、快速手册等样式
+- [x] 文章列表支持懒加载
+- [x] 支持通过配置文件统一修改网站信息
 
 ## 快速开始
 
