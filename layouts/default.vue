@@ -2,19 +2,9 @@
     <div>
         <AppBackground />
         <AppHeader />
-        <div class="content">
+        <div class="relative mt-[var(--header-height)] w-full min-h-[100vh] overflow-hidden">
             <slot />
         </div>
         <AppFooter />
     </div>
 </template>
-
-<style lang="less" scoped>
-.content {
-    position: relative;
-    margin-top: var(--header-height);
-    width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
-}
-</style>

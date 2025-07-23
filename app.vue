@@ -5,15 +5,7 @@
 </template>
 
 <style>
-:root {
-  --header-height: 4rem;
-  --footer-height: 5rem;
-  --inclination-degree: -28deg;
-  --clip-size: 5rem;
-  --flicker-color-1: #F1D801;
-  --flicker-color-2: #6bbd00;
-  --stack-card-border-radius: 1.5rem;
-}
+
 
 * {
   margin: 0;

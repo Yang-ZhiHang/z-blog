@@ -61,5 +61,3 @@ marked.setOptions({
 <template>
   <div class="markdown-body" v-html="markdownContent" />
 </template>
-
-<style scoped></style>

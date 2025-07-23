@@ -3,18 +3,7 @@
 </script>
 
 <template>
-    <div class="home">
+    <div class="flex justify-center items-center h-screen text-2xl text-gray-800">
         这里是首页
     </div>
 </template>
-
-<style lang="less" scoped>
-.home {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 2rem;
-    color: #333;
-}
-</style>

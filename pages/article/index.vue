@@ -34,70 +34,27 @@ provide('articleLoading', {
 </script>
 
 <template>
-    <div class="article">
-        <div v-if="isLoading" class="loading-container">
+    <div class="relative my-8 mx-auto px-8 max-w-[1400px] min-h-[100vh]">
+        <div v-if="isLoading" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <div class="zzz-loading_anim" />
         </div>
-        <div v-show="!isLoading" class="article-list">
+        <div v-show="!isLoading" class="grid items-start gap-5 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
             <ArticleCard
                 v-for="(articleInfo, idx) in articleInfoList.slice(0, displayCount)" :key="idx" :article-info="articleInfo"
-                class="article-card" :style="{ animationDelay: `${0.02 * idx}s` }" 
+                :style="{ animationDelay: `${0.02 * idx}s` }" 
             />
         </div>
     </div>
 </template>
 
 <style lang="less" scoped>
-.article {
-    margin: 2rem auto;
-    padding: 0 2rem;
-    position: relative;
-    max-width: 1400px;
-    min-height: 100vh;
-
-    .loading-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-
-        .zzz-loading_anim {
-            min-width: 110px;
-            min-height: 150px;
-            background: url('https://zamyang.cn/api/image/jSPGd73xHu4Tg7h9Z8NXzw.webp') no-repeat;
-            background-position: 0 6px;
-            animation: zzz-loading_loop .5s steps(30) infinite;
-            filter: invert(1);
-        }
-    }
-
-    .article-list {
-        display: grid;
-        align-items: start;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 20px;
-
-        @media (max-width: 1200px) {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        @media (max-width: 900px) {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        @media (max-width: 650px) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        @media (max-width: 450px) {
-            grid-template-columns: 1fr;
-        }
-
-        .article-card {
-            animation: fade-in 0.1s ease-in-out forwards;
-            opacity: 0;
-        }
-    }
+.zzz-loading_anim {
+    min-width: 110px;
+    min-height: 150px;
+    background: url('https://zamyang.cn/api/image/jSPGd73xHu4Tg7h9Z8NXzw.webp') no-repeat;
+    background-position: 0 6px;
+    animation: zzz-loading_loop .5s steps(30) infinite;
+    filter: invert(1);
 }
 
 @keyframes zzz-loading_loop {
@@ -107,16 +64,6 @@ provide('articleLoading', {
 
     100% {
         background-position: 0 -4494px;
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
     }
 }
 </style>

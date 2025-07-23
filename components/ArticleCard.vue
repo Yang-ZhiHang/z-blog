@@ -45,97 +45,21 @@ onMounted(() => {
 </script>
 
 <template>
-    <article ref="cardRef" class="article-card" @click="gotoArticle(props.articleInfo.id)">
-        <div class="views">
+    <article 
+        ref="cardRef" 
+        class="relative flex-col border-4 border-black rounded-[1.5rem_1.5rem_0_1.5rem] overflow-hidden cursor-pointer transition-all duration-100 opacity-0 animate-[fadeIn_0.1s_ease-in-out_forwards] hover:border-[var(--flicker-color-2)]" 
+        @click="gotoArticle(props.articleInfo.id)"
+    >
+        <div class="flex absolute items-center top-2 left-2 text-white z-[1] gap-2 font-[.9rem]">
             <Icon name="heroicons:eye" size="20" />
             <span>{{ props.articleInfo.views }}</span>
         </div>
-        <div class="img-container">
-            <img ref="imgRef">
+        <div class="relative w-full after:content-[''] after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-[url('data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%20200%20200%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cfilter%20id%3D%27noiseFilter%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.8%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url%28%23noiseFilter%29%27%2F%3E%3C%2Fsvg%3E')] after:mix-blend-overlay after:opacity-50 after:pointer-events-none">
+            <img class="w-full object-cover align-middle" ref="imgRef">
         </div>
-        <div class="meta-info">
-            <h2 class="title">{{ props.articleInfo.title }}</h2>
-            <p class="describ">{{ props.articleInfo.description }}</p>
+        <div class="py-2 px-4 bg-[#222222]">
+            <h2 class="m-0 text-[#929292] font-bold line-clamp-2 overflow-hidden text-ellipsis">{{ props.articleInfo.title }}</h2>
+            <p class="m-0 text-[#AAAAAA] text-[.8rem] font-bold">{{ props.articleInfo.description }}</p>
         </div>
     </article>
 </template>
-
-<style lang="less" scoped>
-.article-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    border: 4px solid #000000;
-    border-radius: 1.5rem 1.5rem 0 1.5rem;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all .1s ease-in-out;
-
-    &:hover {
-        border: 4px solid var(--flicker-color-2);
-    }
-
-    .views {
-        position: absolute;
-        top: .5rem;
-        left: .5rem;
-        color: white;
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.9rem;
-    }
-
-    .img-container {
-        position: relative;
-        width: 100%;
-
-        img {
-            width: 100%;
-            object-fit: cover;
-            vertical-align: middle;
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-    }
-
-    .meta-info {
-        padding: 0.5rem 1rem;
-        background-color: #222222;
-
-        .title {
-            margin: 0;
-            color: #929292;
-            font-size: 1rem;
-            font-weight: bold;
-            display: -webkit-box;
-
-            // line-clamp 是非标准 CSS 属性，不一定生效
-            line-clamp: 2;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .describ {
-            margin: 0;
-            color: #AAAAAA;
-            font-weight: bold;
-            font-size: .8rem;
-        }
-    }
-}
-</style>

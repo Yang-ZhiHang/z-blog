@@ -12,6 +12,12 @@ module.exports = {
                 'grey': 'var(--text-shadow-grey)',
                 'black': 'var(--text-shadow-black)',
                 'none': 'none',
+            },
+            keyframes: {
+                fadeIn: {
+                    '0%': { opacity: 0 },
+                    '100%': { opacity: 1 },
+                }
             }
         },
     },
