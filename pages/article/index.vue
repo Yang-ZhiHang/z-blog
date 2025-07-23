@@ -36,7 +36,7 @@ provide('articleLoading', {
 <template>
     <div class="relative my-8 mx-auto px-8 max-w-[1400px] min-h-[100vh]">
         <div v-if="isLoading" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div class="zzz-loading_anim" />
+            <div class="min-w-[110px] min-h-[150px] bg-[url('/img/zzz-loading.webp')] bg-no-repeat bg-[0 6px] animate-[zzz-loading-loop_.5s_steps(30)_infinite] invert" />
         </div>
         <div v-show="!isLoading" class="grid items-start gap-5 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
             <ArticleCard
@@ -46,24 +46,3 @@ provide('articleLoading', {
         </div>
     </div>
 </template>
-
-<style lang="less" scoped>
-.zzz-loading_anim {
-    min-width: 110px;
-    min-height: 150px;
-    background: url('https://zamyang.cn/api/image/jSPGd73xHu4Tg7h9Z8NXzw.webp') no-repeat;
-    background-position: 0 6px;
-    animation: zzz-loading_loop .5s steps(30) infinite;
-    filter: invert(1);
-}
-
-@keyframes zzz-loading_loop {
-    0% {
-        background-position: 0 6px;
-    }
-
-    100% {
-        background-position: 0 -4494px;
-    }
-}
-</style>

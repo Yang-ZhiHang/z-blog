@@ -3,7 +3,7 @@ import { authorInfo } from '~/data/author';
 </script>
 
 <template>
-    <footer class="footer">
+    <footer class="flex flex-col items-center justify-center py-[10px] w-full h-[var(--footer-height)] bg-black text-white text-[1rem] font-bold">
         <div>
             <a href="https://beian.miit.gov.cn/" target="_blank" style="color: inherit; text-decoration: none;">闽ICP备2024065153号</a>
         </div>
@@ -12,19 +12,3 @@ import { authorInfo } from '~/data/author';
         </div>
     </footer>
 </template>
-
-<style lang="less" scoped>
-.footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 0;
-    width: 100%;
-    height: var(--footer-height);
-    background-color: #000;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
-}
-</style>

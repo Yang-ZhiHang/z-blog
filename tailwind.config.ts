@@ -14,15 +14,23 @@ module.exports = {
                 'none': 'none',
             },
             keyframes: {
-                fadeIn: {
+                "fade-in": {
                     '0%': { opacity: 0 },
                     '100%': { opacity: 1 },
+                },
+                "zzz-loading-loop": {
+                    "0%": {
+                        backgroundPosition: '0 6px',
+                    },
+                    "100%": {
+                        backgroundPosition: '0 -4494px',
+                    }
                 }
             }
         },
     },
     plugins: [
-        function({ addUtilities, theme }: any) {
+        function ({ addUtilities, theme }: any) {
             const textShadows = theme('textShadow')
             const utilities: Record<string, { 'text-shadow': string }> = Object.entries(textShadows).reduce((acc: Record<string, { 'text-shadow': string }>, [key, value]) => {
                 acc[`.text-shadow-${key}`] = {

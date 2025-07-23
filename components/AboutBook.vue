@@ -122,7 +122,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                     <div class="mt-[4rem] mb-[1.5rem] w-full h-full bg-[#141414] border-3xl shadow-[0_0_2px_black,0_0_4px_inset_black] rounded-[2rem]">
                         <div v-if="aboutInfo[activeIdx_Column].title === '关于我'" class="list-container_net-style">
                             <div v-if="isLoading" class="flex justify-center items-center w-full">
-                                <div class="zzz-loading_anim" />
+                                <div class="min-w-[110px] min-h-[150px] bg-[url('/img/zzz-loading.webp')] bg-no-repeat bg-[0 6px] animate-[zzz-loading-loop_.5s_steps(30)_infinite] invert" />
                             </div>
                             <div v-else class="flex justify-between w-full h-full">
                                 <ul class="flex flex-wrap content-start m-4 gap-[2.5%] w-full h-full">
@@ -401,7 +401,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                         margin: 0 auto;
                         min-width: 110px;
                         min-height: 150px;
-                        background: url('https://zamyang.cn/api/image/jSPGd73xHu4Tg7h9Z8NXzw.webp') no-repeat;
+                        background: url('/img/zzz-loading.webp') no-repeat;
                         background-position: 0 6px;
                         animation: zzz-loading_loop .5s steps(30) infinite;
                         filter: invert(1);
@@ -543,16 +543,6 @@ watch([activeIdx_Column, activeIdx_Row], () => {
 
     100% {
         background-color: var(--flicker-color-1);
-    }
-}
-
-@keyframes zzz-loading_loop {
-    0% {
-        background-position: 0 6px;
-    }
-
-    100% {
-        background-position: 0 -4494px;
     }
 }
 </style>
