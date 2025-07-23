@@ -37,3 +37,15 @@ pnpm run dev
 ```
 
 项目启动后进入 `localhost:3000` 即可预览
+
+## 技术栈
+
+- Vue3
+- Nuxt
+- TailwindCSS
+
+项目中的 Tailwind 主要用于处理不需要语义化的标签，如 `h1`、`span`、`p` 等。
+
+而对于需要高度定制化样式的标签，推荐使用 LESS 而非 TailwindCSS。
+
+最后，欢迎提 issue 或 PR
