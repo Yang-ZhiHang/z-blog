@@ -47,7 +47,7 @@ onMounted(() => {
 <template>
     <article 
         ref="cardRef" 
-        class="relative flex-col border-4 border-black rounded-[1.5rem_1.5rem_0_1.5rem] overflow-hidden cursor-pointer transition-all duration-200 opacity-0 animate-[fade-in_0.1s_ease-in-out_forwards] hover:border-[var(--flicker-color-2)]" 
+        class="relative flex-col border-4 border-black rounded-[1.5rem_1.5rem_0_1.5rem] overflow-hidden cursor-pointer transition-all duration-200 opacity-0 animate-[fade-in_0.1s_ease-in-out_forwards] hover:animate-[fade-in_0.1s_ease-in-out_forwards,gradient-border_2s_linear_infinite]" 
         @click="gotoArticle(props.articleInfo.id)"
     >
         <div class="flex absolute items-center top-2 left-2 text-white z-[1] gap-2 font-[.9rem]">

@@ -36,13 +36,34 @@ provide('articleLoading', {
 <template>
     <div class="relative my-8 mx-auto max-w-[80%] min-h-[100vh]">
         <div v-if="isLoading" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div class="min-w-[110px] min-h-[150px] bg-[url('/icon/zzz-loading.webp')] bg-no-repeat bg-[0 6px] animate-[zzz-loading-loop_.5s_steps(30)_infinite] invert" />
+            <div class="zzz-loading_anim" />
         </div>
         <div v-show="!isLoading" class="grid items-start gap-5 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
             <ArticleCard
                 v-for="(articleInfo, idx) in articleInfoList.slice(0, displayCount)" :key="idx" :article-info="articleInfo"
-                :style="{ animationDelay: `${0.02 * idx}s` }" 
+                :style="{ animationDelay: `${0.02 * idx}s, 0s` }" 
             />
         </div>
     </div>
 </template>
+
+<style lang="less" scoped>
+.zzz-loading_anim {
+    min-width: 110px;
+    min-height: 150px;
+    background-image: url('/icon/zzz-loading.webp');
+    background-repeat: no-repeat;
+    background-position: 0 6px;
+    animation: zzz-loading_loop .5s steps(30) infinite;
+    filter: invert(1);
+}
+
+@keyframes zzz-loading_loop {
+    0% {
+        background-position: 0 6px
+    }
+    100% {
+        background-position: 0 -4494px
+    }
+}
+</style>

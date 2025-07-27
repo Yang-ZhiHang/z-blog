@@ -18,19 +18,28 @@ module.exports = {
                     '0%': { opacity: 0 },
                     '100%': { opacity: 1 },
                 },
-                "zzz-loading-loop": {
-                    "0%": {
-                        backgroundPosition: '0 6px',
+                "gradient-border": {
+                    '0%': {
+                        border: '4px solid var(--flicker-color-1)'  
                     },
-                    "100%": {
-                        backgroundPosition: '0 -4494px',
-                    }
-                }
+                    '50%': {
+                        border: '4px solid var(--flicker-color-2)'  
+                    },
+                    '100%': {
+                        border: '4px solid var(--flicker-color-1)'  
+                    },
+                },
             }
         },
     },
     plugins: [
-        function ({ addUtilities, theme }: any) {
+        function ({
+                addUtilities,
+                theme
+            }: { 
+                addUtilities: (utilities: Record<string, Record<string, string>>) => void, 
+                theme: (path: string) => Record<string, string> 
+            }) {
             const textShadows = theme('textShadow')
             const utilities: Record<string, { 'text-shadow': string }> = Object.entries(textShadows).reduce((acc: Record<string, { 'text-shadow': string }>, [key, value]) => {
                 acc[`.text-shadow-${key}`] = {
