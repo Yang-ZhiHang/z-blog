@@ -28,7 +28,7 @@ module.exports = {
                     '100%': {
                         border: '4px solid var(--flicker-color-1)'  
                     },
-                },
+                }
             }
         },
     },

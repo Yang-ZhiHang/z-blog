@@ -34,7 +34,7 @@ provide('articleLoading', {
 </script>
 
 <template>
-    <div class="relative my-8 mx-auto max-w-[80%] min-h-[100vh]">
+    <div class="relative my-8 mx-auto max-w-[90%] min-h-[100vh]">
         <div v-if="isLoading" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <div class="zzz-loading_anim" />
         </div>

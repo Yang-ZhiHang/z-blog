@@ -7,10 +7,6 @@ const router = useRouter();
 const cardDetail = ref<ArticleInfo | undefined>(undefined);
 const isLoading = ref(true);
 
-const goBack = () => {
-  router.back();
-};
-
 const loadData = (id: string | string[]) => {
   isLoading.value = true;
   const numId = Number(id);
@@ -23,11 +19,28 @@ onBeforeMount(() => {
     loadData(route.params.id);
   }
 });
+
+
+import { gsap } from "gsap";
+
+const goBack = () => {
+  gsap.to('.back-button_pressed', {
+    keyframes: [
+      { opacity: 1, duration: 0.05 },
+      { opacity: 0, duration: 0.05 }
+    ],
+    repeat: 3,
+    onComplete: () => {
+      router.back();
+    }
+  });
+};
 </script>
 
 <template>
   <div class="relative min-h-[100vh] pt-20">
-    <div class="fixed top-[calc(var(--header-height)+.5rem)] left-1 w-32 aspect-[2/1] bg-[url('/icon/back.webp')] bg-no-repeat bg-contain cursor-pointer z-10 hover:brightness-50" @click="goBack" />
+    <div class="back-button" @click="goBack" />
+    <div class="back-button_pressed" />
     <div v-if="isLoading" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div class="min-w-[110px] min-h-[150px] bg-[url('/icon/zzz-loading.webp')] bg-no-repeat bg-[0 6px] animate-[zzz-loading-loop_.5s_steps(30)_infinite] invert" />
     </div>
@@ -36,3 +49,34 @@ onBeforeMount(() => {
     </div>
   </div>
 </template>
+
+<style lang="less" scoped>
+.back-button {
+  position: fixed;
+  top: calc(var(--header-height) + 0.5rem);
+  left: 0.25rem;
+  width: 8rem;
+  aspect-ratio: 2/1;
+  background: url('/icon/back.webp') no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  z-index: 100;
+
+  &:hover {
+    filter: brightness(50%);
+  }
+}
+
+.back-button_pressed {
+  position: fixed;
+  top: calc(var(--header-height) + 0.5rem);
+  left: 0.25rem;
+  width: 8rem;
+  aspect-ratio: 2/1;
+  background: url('/icon/back_pressed.webp') no-repeat;
+  background-size: contain;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 101;
+}
+</style>
