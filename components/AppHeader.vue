@@ -10,7 +10,7 @@ const toggleMobileMenu = () => {
 </script>
 
 <template>
-    <header class="flex fixed items-center justify-between top-0 w-full h-[var(--header-height)] bg-black z-50">
+    <header class="flex fixed items-center justify-between top-0 w-full h-[var(--height-header)] bg-black z-50">
         <AppAuthor />
         <ul class="nav-pc relative flex shrink-0 justify-around items-center p-0 mr-4 h-[2.2rem] bg-[#050505] rounded-[2rem] border-[3px] border-[#383838] shadow-[0_0_0_1px_rgba(255,255,255,.1),inset_0_0_4px_rgba(0,0,0,1)]">
             <li 
@@ -34,7 +34,7 @@ const toggleMobileMenu = () => {
             </button>
         </div>
         <Transition name="fade-in">
-            <ul v-if="mobileMenuVisible" class="nav-mobile absolute top-[var(--header-height)] right-0 p-2 bg-[#050505] rounded-[1rem] border-[3px] border-[#383838]">
+            <ul v-if="mobileMenuVisible" class="nav-mobile absolute top-[var(--height-header)] right-0 p-2 bg-[#050505] rounded-[1rem] border-[3px] border-[#383838]">
                 <li 
                 v-for="(nav, idx) in navList" 
                 :key="idx"
@@ -201,15 +201,15 @@ const toggleMobileMenu = () => {
 
 @keyframes gradient-color {
     0% {
-        background-color: var(--flicker-color-1);
+        background-color: var(--color-flicker-from);
     }
 
     50% {
-        background-color: var(--flicker-color-2);
+        background-color: var(--color-flicker-to);
     }
 
     100% {
-        background-color: var(--flicker-color-1);
+        background-color: var(--color-flicker-from);
     }
 }
 

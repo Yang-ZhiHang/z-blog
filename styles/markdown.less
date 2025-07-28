@@ -1,19 +1,23 @@
 // out: false
 
 :root {
+  // Quote
   --background-color-blockquote: rgb(22, 22, 22);
 
+  // Table
   --background-color-table-header: rgb(19, 19, 19);
   --background-color-table-cell: rgba(37, 37, 37, 0.5);
   --border-color-table: rgba(40, 40, 40, 0.8);
   --padding-table-cell: .5rem;
 
+  // Markdown Previewer
   --font-color-markdown-previewer: #fff;
   --font-color-markdown-heading: #ffffff;
   --font-color-markdown-code: #ffa200;
   --background-color-markdown-code: rgba(255, 162, 0, 0.1);
   --background-color-markdown-previewer: rgb(16, 33, 60);
 
+  // Miscellaneous
   --line-margin: 1.25rem;
 }
 
@@ -45,7 +49,8 @@
       margin-bottom: var(--line-margin);
       max-width: 100%;
       max-height: 80vh;
-      border-radius: .5rem;
+      border-radius: 0 var(--border-image-markdown) 0 var(--border-image-markdown);
+      border: 4px solid black;
       cursor: zoom-in;
     }
   }
@@ -128,7 +133,6 @@
       line-height: 1.6;
     }
   }
-
   /* 引用样式 end
     --------------------------------------------------- */
 

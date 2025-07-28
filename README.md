@@ -16,6 +16,8 @@
 
 ![](https://raw.githubusercontent.com/Yang-ZhiHang/z-blog/master/demo/关于.webp)
 
+![](https://raw.githubusercontent.com/Yang-ZhiHang/z-blog/master/demo/图片预览.webp)
+
 ## 功能特点
 
 - [x] 复刻绝区零的绳网、快速手册等样式

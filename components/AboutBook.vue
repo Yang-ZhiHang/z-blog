@@ -133,7 +133,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                                         :class="{ active: activeIdx_Card === idx }"
                                     >
                                         <div class="mb-1" @click="handleClick_Card(idx)">
-                                            <img :src="item.url" class="relative block m-0 w-full border-[3px] border-solid border-[#3F3F3F] rounded-[var(--stack-card-border-radius)] cursor-pointer z-[1]">
+                                            <img :src="item.url" class="relative block m-0 w-full border-[3px] border-solid border-[#3F3F3F] rounded-[var(--border-card-about)] cursor-pointer z-[1]">
                                         </div>
                                         <span class="block w-full py-1.5 px-0 text-center text-xs font-bold leading-3 text-white bg-black rounded-full cursor-pointer">
                                             {{ item.title }}
@@ -147,7 +147,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                                             <div>
                                                 <img 
                                                     :src="aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].url"
-                                                    class="w-[5rem] border-[var(--stack-card-border-radius)]"
+                                                    class="w-[5rem] border-[var(--border-card-about)]"
                                                 >
                                                 <img class="absolute top-[2.5rem] right-[3rem] w-2/5 aspect-square z-[-1] grayscale-[1] opacity-[.3]" :src="aboutInfo[activeIdx_Column]['item'][activeIdx_Row]['item'][activeIdx_Card].url">
                                             </div>
@@ -417,7 +417,7 @@ watch([activeIdx_Column, activeIdx_Row], () => {
                                 left: 50%;
                                 width: 100%;
                                 aspect-ratio: 1/1;
-                                border-radius: var(--stack-card-border-radius);
+                                border-radius: var(--border-card-about);
                                 animation: gradient-color 1.48s linear infinite, scale-bg .7s ease-in-out infinite;
                                 z-index: 0;
                             }
@@ -543,15 +543,15 @@ watch([activeIdx_Column, activeIdx_Row], () => {
 
 @keyframes gradient-color {
     0% {
-        background-color: var(--flicker-color-1);
+        background-color: var(--color-flicker-from);
     }
 
     50% {
-        background-color: var(--flicker-color-2);
+        background-color: var(--color-flicker-to);
     }
 
     100% {
-        background-color: var(--flicker-color-1);
+        background-color: var(--color-flicker-from);
     }
 }
 </style>

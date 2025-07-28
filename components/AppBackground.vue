@@ -20,6 +20,7 @@ import { authorInfo } from '~/data/author';
 </template>
 
 <style lang="less" scoped>
+
 .background {
     position: fixed;
     top: 0;
@@ -35,12 +36,9 @@ import { authorInfo } from '~/data/author';
         left: 0;
         width: 100%;
         height: 100%;
-        background: repeating-linear-gradient(40deg,
-                #000 0,
-                #000 2px,
-                transparent 2px,
-                transparent 4px);
-        opacity: 0.1;
+        @space-between_bg: 3px;
+        background: repeating-linear-gradient(40deg, rgba(0,0,0,.2) 0, rgba(0,0,0,.2) @space-between_bg, transparent @space-between_bg, transparent @space-between_bg * 2);
+        opacity: 0.5;
     }
 
     .slide-container {

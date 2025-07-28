@@ -20,14 +20,22 @@ module.exports = {
                 },
                 "gradient-border": {
                     '0%': {
-                        border: '4px solid var(--flicker-color-1)'  
+                        border: '4px solid var(--color-flicker-from)'  
                     },
                     '50%': {
-                        border: '4px solid var(--flicker-color-2)'  
+                        border: '4px solid var(--color-flicker-to)'  
                     },
                     '100%': {
-                        border: '4px solid var(--flicker-color-1)'  
+                        border: '4px solid var(--color-flicker-from)'  
                     },
+                },
+                "slide": {
+                    "0%": {
+                        transform: 'translate(-50%, -50%) rotateZ(-15deg) translateX(25%)'
+                    },
+                    "100%": {
+                        transform: 'translate(-50%, -50%) rotateZ(-15deg) translateX(-25%)'
+                    }
                 }
             }
         },
